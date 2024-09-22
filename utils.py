@@ -50,9 +50,9 @@ def validate_bitwarden_vault(bitwarden_vault: Type_BitwardenVault) -> None:
             raise ValueError(f'Account at index {index} "name" property must be a string.')
 
     
-# Cleans up urls, returning only the top-level domain, free of subdomains
+# Cleans up urls, returning only the root domain, free of subdomains
 # Ex: 'https://login.example.com/account' to 'example.com'
-def get_top_level_domain(uri: str) -> str:
+def get_root_domain(uri: str) -> str:
     parsed_uri = urlparse(uri)
     uri_parts = parsed_uri.hostname.split('.')
 
@@ -69,8 +69,8 @@ def get_accounts_with_unused_2fa(
         # Check each URI in the account's login URIs
         for uri_dict in account['login']['uris']:
             uri = uri_dict['uri']
-            domain = get_top_level_domain(uri)
-            totp_info = totp_json.get(domain)
+            root_domain = get_root_domain(uri)
+            totp_info = totp_json.get(root_domain)
 
             # If the site supports 2FA and TOTP is None, add to the result
             if totp_info and account['login']['totp'] is None:
