@@ -1,4 +1,4 @@
-from utils import read_json, write_json, validate_bitwarden_vault, get_top_level_domain, get_accounts_with_unused_2fa
+from utils import read_json, write_json, validate_bitwarden_vault, get_accounts_with_unused_2fa
 from project_types import Type_BitwardenVault, Type_TotpJson, Type_Output
 import sys
 
